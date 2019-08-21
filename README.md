@@ -15,7 +15,7 @@ List the extension in your `conf.py` file.
 
 extensions = [
     ...,
-    'sphinx_pydantic'
+    'sphinx-pydantic'
 ]
 
 ```
