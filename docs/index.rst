@@ -83,4 +83,4 @@ Install sphinx-pydantic with ``pip``:
 
 .. code-block::
 
-    pip install sphinx_pydantic
+    pip install sphinx-pydantic
