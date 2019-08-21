@@ -21,6 +21,7 @@ project = 'sphinx-pydantic'
 copyright = '2019, Zach Sailer'
 author = 'Zach Sailer'
 
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 
