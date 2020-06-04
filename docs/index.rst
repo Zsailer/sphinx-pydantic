@@ -11,14 +11,14 @@ Sphinx-pydantic generates schema documentation from pydantic_ models. For exampl
 
 .. code-block:: python
 
-    from pydantic import BaseModel, Schema
+    from pydantic import BaseModel, Field
 
     class Thing(BaseModel):
         """
         An example of a pydantic object from which we 
         can autogenerate schema documentation.
         """
-        name: str = Schema(
+        name: str = Field(
             ...,
             title='name',
             description='Name of this thing',
@@ -26,7 +26,7 @@ Sphinx-pydantic generates schema documentation from pydantic_ models. For exampl
 
 .. pydantic:: Thing
 
-    from pydantic import BaseModel, Schema
+    from pydantic import BaseModel, Field
 
 
     class Thing(BaseModel):
@@ -35,7 +35,7 @@ Sphinx-pydantic generates schema documentation from pydantic_ models. For exampl
         can autogenerate schema documentation.
         """
         
-        name: str = Schema(
+        name: str = Field(
             ...,
             title='name',
             description='Name of this thing',
@@ -74,7 +74,11 @@ and you can use the ``pydantic`` directive in your ``.rst`` docs.
 
     some more text ...
 
-``thing.Thing`` is a class (in the ``thing`` module) that subclasses ``pydantic.BaseModel``. Sphinx-pydantic imports this class and generates schema using pydantic's sweet API. 
+``thing.Thing`` is a class (in the ``thing`` module) that subclasses ``pydantic.BaseModel``.
+Sphinx-pydantic imports this class and generates schema using pydantic's sweet API.
+By default sphinx is calling the `schema_json` function from pydantic BaseModel.
+You can customize the displayed schema by implementing a `schema_rst` function inside your class,
+which then will be called instead without any arguments.
 
 Installation
 ------------

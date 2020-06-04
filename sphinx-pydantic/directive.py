@@ -29,8 +29,11 @@ class PyDanticSchema(JsonSchema):
         if not issubclass(obj, pydantic.BaseModel):
             raise TypeError(f"{arguments[0]} is not a subclass of pydantic.BaseModel.")
 
-        # Generate a json schema from pydantic
-        content = obj.schema_json(indent=2)
+        # Generate a json schema from pydantic. If available use user defined function schema_rst.
+        if callable(getattr(obj, "schema_rst", None)):
+            content = obj.schema_rst()
+        else:
+            content = obj.schema_json(indent=2)
 
         # Need to break content into a list to work with jsonschema.
         content = content.split('\n')
