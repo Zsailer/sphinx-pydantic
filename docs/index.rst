@@ -15,7 +15,7 @@ Sphinx-pydantic generates schema documentation from pydantic_ models. For exampl
 
     class Thing(BaseModel):
         """
-        An example of a pydantic object from which we 
+        An example of a pydantic object from which we
         can autogenerate schema documentation.
         """
         name: str = Field(
@@ -31,10 +31,10 @@ Sphinx-pydantic generates schema documentation from pydantic_ models. For exampl
 
     class Thing(BaseModel):
         """
-        An example of a pydantic object from which we 
+        An example of a pydantic object from which we
         can autogenerate schema documentation.
         """
-        
+
         name: str = Field(
             ...,
             title='name',
@@ -44,7 +44,7 @@ Sphinx-pydantic generates schema documentation from pydantic_ models. For exampl
 How does it work?
 -----------------
 
-**Sphinx-pydantic** is an Sphinx extension that provides a new directive for adding a pydantic objects to your page and leverages sphinx-jsonschema_ to generate schema tables. 
+**Sphinx-pydantic** is an Sphinx extension that provides a new directive for adding a pydantic objects to your page and leverages sphinx-jsonschema_ to generate schema tables.
 
 
 .. _pydantic: https://pydantic-docs.helpmanual.io/
@@ -54,7 +54,7 @@ Add ``sphinx-pydantic`` to the extensions in your Sphinx ``conf.py`` file.
 
 
 .. code-block:: python
-    
+
     # conf.py
     ...
 
@@ -64,7 +64,7 @@ Add ``sphinx-pydantic`` to the extensions in your Sphinx ``conf.py`` file.
     ]
 
 
-and you can use the ``pydantic`` directive in your ``.rst`` docs. 
+and you can use the ``pydantic`` directive in your ``.rst`` docs.
 
 .. code-block:: rst
 
@@ -85,6 +85,6 @@ Installation
 
 Install sphinx-pydantic with ``pip``:
 
-.. code-block::
+.. code-block:: console
 
     pip install sphinx-pydantic
