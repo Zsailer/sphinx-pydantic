@@ -1,2 +1,2 @@
 pydantic
-sphinx-jsonschema
+sphinx-jsonschema==1.15
