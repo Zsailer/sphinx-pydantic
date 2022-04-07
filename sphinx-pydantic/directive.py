@@ -6,28 +6,30 @@ import pydantic
 # Depend on JsonSchema
 JsonSchema = __import__('sphinx-jsonschema').JsonSchema
 
+
 class PyDanticSchema(JsonSchema):
     """Wrapper around sphinx-jsonschemas native Directive.
     """
     has_content = True
 
-    def __init__(self, directive, arguments, options, content, lineno, 
-        content_offset, block_text, state, state_machine):
+    def __init__(self, name, arguments, options, content, lineno,
+                 content_offset, block_text, state, state_machine):
+
         # Get content source.
         if len(content) > 0:
-            json_content = self.from_content(arguments[0], content)
+            json_content = self.from_content(arguments[0])
         else:
             json_content = self.from_import(arguments[0])
 
         # Pass the new content to sphinx-jsonschema
-        super(PyDanticSchema, self).__init__(directive='jsonschema', arguments=[], options=options, 
-            content=json_content, lineno=lineno, content_offset=content_offset, block_text=block_text, 
+        super(PyDanticSchema, self).__init__(name='jsonschema', arguments=[], options=options,
+            content=json_content, lineno=lineno, content_offset=content_offset, block_text=block_text,
             state=state, state_machine= state_machine)
 
     def obj_to_content(self, obj):
         # Verify type.
         if not issubclass(obj, pydantic.BaseModel):
-            raise TypeError(f"{arguments[0]} is not a subclass of pydantic.BaseModel.")
+            raise TypeError(f"{obj} is not a subclass of pydantic.BaseModel.")
 
         # Generate a json schema from pydantic. If available use user defined function schema_rst.
         if callable(getattr(obj, "schema_rst", None)):
@@ -55,22 +57,15 @@ class PyDanticSchema(JsonSchema):
 
         return self.obj_to_content(obj)
 
+    def from_content(self, _):
+        data = '\n'.join(self.content)
+        return data, ''
 
-    def from_content(self, name, content):
-        # Content to code.
-        code = '\n'.join(content)
-
-        # Execute code.
-        exec(code, globals())
-
-        # Get object
-        obj = globals()[name]
-
-        return self.obj_to_content(obj)
 
 def setup(app):
     # Add pydantic directive to sphinx.
     app.add_directive("pydantic", PyDanticSchema)
+    app.add_config_value('jsonschema_options', {}, 'env')
 
     return {
         'version': __version__,
